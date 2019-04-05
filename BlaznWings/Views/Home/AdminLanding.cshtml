@@ -1,0 +1,32 @@
+﻿
+@{
+	ViewBag.Title = "AdminLanding";
+}
+
+<h1 align="center">Hello Devaunte!</h1>
+<br />
+<h2 align="center" class="center-block">What would you like to do?</h2>
+
+<br />
+<br />
+<div id="button-container" style="padding-left: 0px; padding-right: 0px;">
+	<div class="col-md-4" style="background-color: red; text-align: center">
+		@Html.ActionLink("Photos", "AddDelete", "Home", null, new { @class="btn btn-success",
+		@style = "height: 200px; width: 200px;  line-height: 180px; "})
+	</div>
+
+
+	<div class="col-md-4" style="background-color: darkgreen; text-align:center">
+		@Html.ActionLink("Videos", "AddDelete", "Home", null, new { @class="btn btn-success",
+		@style = "height: 200px; width: 200px; line-height: 180px; "})
+	</div>
+
+
+	<div class="col-md-4" style="background-color: blue; text-align: center">
+		@Html.ActionLink("Add or Delete Photos", "AddDelete", "Home", null, new { @class="btn btn-success",
+		@style = "height: 200px; width: 200px;  line-height: 180px; "})
+	</div>
+
+</div>
+<br />
+
