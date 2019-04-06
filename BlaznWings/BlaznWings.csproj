@@ -218,7 +218,7 @@
     <Content Include="Views\Home\AdminLanding.cshtml" />
     <Content Include="Views\Home\ManagePhotos.cshtml" />
     <Content Include="Views\Home\AddPhotos.cshtml" />
-    <Content Include="Views\Home\EditDeletePhotos.cshtml" />
+    <Content Include="Views\Home\EditDeletePhotosAsync.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
