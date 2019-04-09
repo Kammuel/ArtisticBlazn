@@ -68,7 +68,7 @@ namespace BlaznWings.Controllers
 		}
 		
 		[HttpGet]
-		public ActionResult AddPhotos()
+		public ActionResult AddPhotosAsync()
 		{
 
 			return View();
@@ -100,13 +100,13 @@ namespace BlaznWings.Controllers
 
 				ViewBag.Message = "Image uploaded!";
 
-				return RedirectToAction("AddPhotos");
+				return RedirectToAction("AddPhotosAsync");
 			}
 			else
 			{
 				ViewBag.Message = "Please select a file.";
 
-				return RedirectToAction("AddPhotos");
+				return RedirectToAction("AddPhotosAsync");
 			}
 		}
 

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "AddPhotos";
+}
+
+<h1 style="text-align: center;">Add Photos</h1>
+
+<div style="padding-top: 40px;text-align: center">
+	@Html.ActionLink("Back To Manage Photos", "ManagePhotos", "Home", null, new { @class = "btn btn-danger",
+	@style = "width:500px; "
+})
+</div>
+
+<h3>@ViewBag.Message</h3>
+
+<form action="AddPhotosAsync" method="post" enctype="multipart/form-data">
+	<div>
+		<label for="file">Add a File:</label>
+		<br />
+
+
+		<input type="file" name="file" id="file" accept="image/x-png, image/gif, image/jpeg, image/jpg" />
+		<br />
+		<button type="submit" class="btn btn-success">Add an Image!</button>
+
+		
+	</div>
+</form>
+
+
+
