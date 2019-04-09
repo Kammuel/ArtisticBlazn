@@ -9,11 +9,13 @@
 </head>
 <body>
 	
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-fixed-top" style="background-color: lightblue">
 			<div class="container-fluid">
 				<div class="navbar-header" >
-					<a class="navbar-brand" style="font-size: 50px;" href="#">WebSiteName</a>
-				</div>
+					<a href='@Url.Action("Index", "Home")'>
+						<img src='@Url.Content("~/Images/casey.jpg")' />
+					</a>
+</div>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
