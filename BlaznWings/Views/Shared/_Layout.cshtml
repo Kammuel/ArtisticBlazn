@@ -9,24 +9,32 @@
 </head>
 <body>
 	
-		<nav class="navbar navbar-fixed-top" style="background-color: lightblue">
+		<nav class="navbar navbar-fixed-top" style="background-color: lightgray; ">
 			<div class="container-fluid">
 				<div class="navbar-header" >
-					<a href='@Url.Action("Index", "Home")'>
+					<a href='@Url.Action("Index", "Home")' >
 						<img src='@Url.Content("~/Images/casey.jpg")' />
 					</a>
-</div>
+				</div>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 								
-							<span class="glyphicon glyphicon-menu-hamburger" style="font-size: 50px"></span>
+							<span class="glyphicon glyphicon-menu-hamburger" style="font-size: 40px"></span>
 							
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Page 1-1</a></li>
-							<li><a href="#">Page 1-2</a></li>
-							<li><a href="#">Page 1-3</a></li>
+							<li>@Html.ActionLink("Home", "Index", "Home")</li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Pictures</li>
+							<li>@Html.ActionLink("Pictures", "Pictures", "Home")</li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Videos</li>
+							<li>@Html.ActionLink("Videos", "Videos", "Home")</li>
+							<li class="divider"></li>
+							<br/>
+							<li>@Html.ActionLink("Report a Problem", "Report", "Home")</li>
+							<li>@Html.ActionLink("Admin Login", "AdminPortal", "Home")</li>
 						</ul>
 					</li>
 					
