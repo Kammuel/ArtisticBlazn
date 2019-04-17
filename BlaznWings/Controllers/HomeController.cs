@@ -75,7 +75,7 @@ namespace BlaznWings.Controllers
 		}
 
 		[HttpPost]
-		public async System.Threading.Tasks.Task<ActionResult> AddPhotosAsync(HttpPostedFileBase file)
+		public async System.Threading.Tasks.Task<ActionResult> AddPhotosAsync(PictureItem picture, HttpPostedFileBase file)
 		{
 			if (file != null)
 			{

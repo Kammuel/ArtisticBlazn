@@ -7,13 +7,13 @@ namespace BlaznWings.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class PassingOver : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PassingOver));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904040231179_Initial"; }
+            get { return "201904160500400_PassingOver"; }
         }
         
         string IMigrationMetadata.Source

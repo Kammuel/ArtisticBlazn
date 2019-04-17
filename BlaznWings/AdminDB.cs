@@ -22,6 +22,8 @@ namespace BlaznWings
 		// on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
 		public virtual DbSet<AdminUser> Admins { get; set; }
+		public virtual DbSet<PictureItem> Pictures { get; set; }
+		public virtual DbSet<VideoItem> Videos { get; set; }
 	}
 
 	//public class MyEntity

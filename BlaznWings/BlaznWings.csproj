@@ -169,16 +169,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904040231179_Initial.cs" />
-    <Compile Include="Migrations\201904040231179_Initial.Designer.cs">
-      <DependentUpon>201904040231179_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904082141409_Azure Installation.cs" />
-    <Compile Include="Migrations\201904082141409_Azure Installation.Designer.cs">
-      <DependentUpon>201904082141409_Azure Installation.cs</DependentUpon>
+    <Compile Include="Migrations\201904160500400_PassingOver.cs" />
+    <Compile Include="Migrations\201904160500400_PassingOver.Designer.cs">
+      <DependentUpon>201904160500400_PassingOver.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\PictureItem.cs" />
+    <Compile Include="Models\VideoItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +222,6 @@
     <Content Include="Views\Home\AdminPortal.cshtml" />
     <Content Include="Views\Home\AdminLanding.cshtml" />
     <Content Include="Views\Home\ManagePhotos.cshtml" />
-    <Content Include="Views\Home\AddPhotosAsync.cshtml" />
     <Content Include="Views\Home\EditDeletePhotosAsync.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -244,11 +241,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904040231179_Initial.resx">
-      <DependentUpon>201904040231179_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904082141409_Azure Installation.resx">
-      <DependentUpon>201904082141409_Azure Installation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904160500400_PassingOver.resx">
+      <DependentUpon>201904160500400_PassingOver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
