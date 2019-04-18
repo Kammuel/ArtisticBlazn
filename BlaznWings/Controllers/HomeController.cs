@@ -75,9 +75,9 @@ namespace BlaznWings.Controllers
 		}
 
 		[HttpPost]
-		public async System.Threading.Tasks.Task<ActionResult> AddPhotosAsync(PictureItem picture, HttpPostedFileBase file)
+		public async System.Threading.Tasks.Task<ActionResult> AddPhotosAsync(PictureItem picture)
 		{
-			if (file != null)
+			if (picture.Path != null)
 			{
 				CloudStorageAccount storageAccount = new CloudStorageAccount(
 				new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
@@ -88,15 +88,37 @@ namespace BlaznWings.Controllers
 
 				// Get a reference to a blob named "myblob".
 				CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
-				
 
-				string imageName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(file.FileName);
+
+				string imageName = picture.Name;
 
 				blockBlob = container.GetBlockBlobReference(imageName);
-				blockBlob.Properties.ContentType = file.ContentType;
+				blockBlob.Properties.ContentType = picture.Path.ContentType;
 
-				await blockBlob.UploadFromStreamAsync(file.InputStream);
+				await blockBlob.UploadFromStreamAsync(picture.Path.InputStream);
 
+				CloudBlockBlob addedBlob = GetPictureBlobByName(imageName);
+
+				if (addedBlob != null)
+				{
+					PictureItem newPicture = new PictureItem();
+					AdminDB db = new AdminDB();
+
+					newPicture.Category = picture.Category;
+					newPicture.Description = picture.Description;
+					newPicture.Url = addedBlob.Uri.ToString();
+					newPicture.Name = picture.Name;
+					newPicture.Url = addedBlob.StorageUri.ToString();
+
+					db.Pictures.Add(newPicture);
+					db.SaveChanges();
+				}
+				else
+				{
+					ViewBag.Message = "Unable to add that blob for whatever reason.";
+
+					return View();
+				}
 
 				ViewBag.Message = "Image uploaded!";
 
@@ -139,6 +161,22 @@ namespace BlaznWings.Controllers
 			ViewBag.Current = "ManagePicturesAsync";
 
 			return View();
+		}
+
+		public CloudBlockBlob GetPictureBlobByName(string Name)
+		{
+			CloudStorageAccount storageAccount = new CloudStorageAccount(
+				new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
+
+			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+			CloudBlobContainer container = blobClient.GetContainerReference("blaznphotos");
+
+			CloudBlockBlob potentialItem;
+
+			potentialItem = container.GetBlockBlobReference(Name);
+
+			return potentialItem;
 		}
 
 	}
