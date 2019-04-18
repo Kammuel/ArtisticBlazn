@@ -106,12 +106,14 @@ namespace BlaznWings.Controllers
 
 					newPicture.Category = picture.Category;
 					newPicture.Description = picture.Description;
-					newPicture.Url = addedBlob.Uri.ToString();
+					//newPicture.Path = picture.Path;
 					newPicture.Name = picture.Name;
-					newPicture.Url = addedBlob.StorageUri.ToString();
+					newPicture.Url = addedBlob.Uri.ToString();
 
 					db.Pictures.Add(newPicture);
 					db.SaveChanges();
+
+					ViewBag.Message = "Picture added to storage!";
 				}
 				else
 				{
@@ -161,6 +163,114 @@ namespace BlaznWings.Controllers
 			ViewBag.Current = "ManagePicturesAsync";
 
 			return View();
+		}
+
+		[HttpGet]
+		public ActionResult EditDeletePhotos()
+		{
+			AdminDB db = new AdminDB();
+
+			List<PictureItem> pictures = db.Pictures.ToList();
+
+			return View(pictures);
+		}
+
+		[HttpGet]
+		public ActionResult EditPhotoAsync(int id)
+		{
+			AdminDB db = new AdminDB();
+
+			PictureItem thisPhoto = db.Pictures.Where(v => v.PictureItemID == id).SingleOrDefault();
+
+			if(thisPhoto != null)
+			{
+				return View(thisPhoto);
+			}
+			else
+			{
+				ViewBag.Message = "Could not find that picture's ID.";
+
+				return RedirectToAction("EditDeletePhotos");
+			}
+		}
+
+		[HttpPost]
+		public async System.Threading.Tasks.Task<ActionResult> EditPhotoAsync(PictureItem picture)
+		{
+			//Set up database
+			AdminDB db = new AdminDB();
+
+			PictureItem oldPicture = db.Pictures.
+				Where(v => v.PictureItemID == picture.PictureItemID).SingleOrDefault();
+
+			//Set up Azure blob connection
+			CloudStorageAccount storageAccount = new CloudStorageAccount(
+				new Microsoft.WindowsAzure.Storage.
+				Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
+
+			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+			CloudBlobContainer container = blobClient.GetContainerReference("blaznphotos");
+
+			//Delete Old Blob in Storage
+			//Delete blob
+			CloudBlockBlob blob = container.GetBlockBlobReference(oldPicture.Name);
+
+			CloudBlockBlob blobCopy = container.GetBlockBlobReference(picture.Name);
+
+			if (!await blobCopy.ExistsAsync())
+			{
+
+				if (await blob.ExistsAsync())
+				{
+					await blobCopy.StartCopyAsync(blob);
+					await blob.DeleteIfExistsAsync();
+				}
+			}
+
+			//Change PictureItem in SQL database
+			picture.Url = oldPicture.Url;
+			db.Entry(picture).State = System.Data.Entity.EntityState.Modified;
+			db.Pictures.Attach(picture);
+			
+
+			db.SaveChanges();
+
+			return RedirectToAction("EditDeletePhotos");
+		}
+
+		[HttpGet]
+		public ActionResult DeletePhoto (int id)
+		{
+			AdminDB db = new AdminDB();
+
+			PictureItem deletePicture = db.Pictures.Where(v => v.PictureItemID == id).SingleOrDefault();
+
+			if(deletePicture != null)
+			{
+				//Delete blob
+				CloudStorageAccount storageAccount = new CloudStorageAccount(
+				new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
+
+				CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+				CloudBlobContainer container = blobClient.GetContainerReference("blaznphotos");
+
+				CloudBlockBlob blob = container.GetBlockBlobReference(deletePicture.Name);
+
+				blob.Delete();
+
+				//Delete Picture from database
+				db.Pictures.Remove(deletePicture);
+
+				db.SaveChanges();
+
+				return RedirectToAction("EditDeletePhotos");
+			}
+			else
+			{
+				return RedirectToAction("EditDeletePhotos");
+			}
 		}
 
 		public CloudBlockBlob GetPictureBlobByName(string Name)

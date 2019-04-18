@@ -6,6 +6,14 @@
 
 <h2>AddPhotosAsync</h2>
 
+<div style="padding-top: 40px; padding-bottom: 40px;text-align: center">
+	@Html.ActionLink("Back To Manage Photos", "ManagePhotos", "Home", null, new
+	{
+		@class = "btn btn-danger",
+	@style = "width:500px; "
+})
+</div>
+
 
 @using (Html.BeginForm("AddPhotosAsync", "Home", FormMethod.Post,
                  new{ enctype="multipart/form-data"}))
@@ -47,28 +55,16 @@
 		</div>
 	</div>
 
-	<br/>
+	<br />
 
 	<button type="submit">Submit</button>
 
-
-	<!--
-	<div>
-		<label for="file">Add a File:</label>
-		<br/>
-		<input type="file" id="file" accept="image/x-png, image/gif, image/jpeg, image/jpg" />
-		<br/>
-
-		<button type="submit" class="btn btn-success">Add A Picture!</button>
-
-		<h3>@ViewBag.Message</h3>
-	</div>-->
+	<h3>@ViewBag.Message</h3>
+	
 </div>
 }
 
-<div>
-	@Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")

@@ -25,5 +25,6 @@ namespace BlaznWings.Models
 
 		[NotMapped]
 		public HttpPostedFileBase Path { get; set; }
+
 	}
 }

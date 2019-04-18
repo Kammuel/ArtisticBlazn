@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201904160500400_PassingOver.Designer.cs">
       <DependentUpon>201904160500400_PassingOver.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904182006197_Added URL Property to PictureItem.cs" />
+    <Compile Include="Migrations\201904182006197_Added URL Property to PictureItem.Designer.cs">
+      <DependentUpon>201904182006197_Added URL Property to PictureItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUser.cs" />
     <Compile Include="Models\PictureItem.cs" />
@@ -220,10 +224,11 @@
     <Content Include="Views\Home\AdminPortal.cshtml" />
     <Content Include="Views\Home\AdminLanding.cshtml" />
     <Content Include="Views\Home\ManagePhotos.cshtml" />
-    <Content Include="Views\Home\EditDeletePhotosAsync.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Home\AddPhotosAsync.cshtml" />
+    <Content Include="Views\Home\EditDeletePhotos.cshtml" />
+    <Content Include="Views\Home\EditPhotoAsync.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -231,6 +236,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904160500400_PassingOver.resx">
       <DependentUpon>201904160500400_PassingOver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904182006197_Added URL Property to PictureItem.resx">
+      <DependentUpon>201904182006197_Added URL Property to PictureItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

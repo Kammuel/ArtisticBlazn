@@ -17,14 +17,14 @@
 <br/>
 <br/>
 <div id="button-container">
-	<div class="col-md-6" style="background-color: red; text-align: center">
+	<div class="col-md-6" style="text-align: center">
 		@Html.ActionLink("Add Photos", "AddPhotosAsync", "Home", null, new { @class="btn btn-success",
 		@style = "height: 200px; width: 200px;  line-height: 180px; "})
 	</div>
 
 
-	<div class="col-md-6" style="background-color: darkgreen; text-align:center">
-		@Html.ActionLink("Edit or Delete Photos", "EditDeletePhotosAsync", "Home", null, new { @class="btn btn-success",
+	<div class="col-md-6" style="text-align:center">
+		@Html.ActionLink("Edit or Delete Photos", "EditDeletePhotos", "Home", null, new { @class="btn btn-success",
 		@style = "height: 200px; width: 200px; line-height: 180px; "})
 	</div>
 
