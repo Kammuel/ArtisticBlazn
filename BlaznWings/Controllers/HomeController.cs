@@ -3,6 +3,8 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -229,11 +231,19 @@ namespace BlaznWings.Controllers
 			}
 
 			//Change PictureItem in SQL database
-			picture.Url = oldPicture.Url;
-			db.Entry(picture).State = System.Data.Entity.EntityState.Modified;
-			db.Pictures.Attach(picture);
-			
+			picture.Url = blobCopy.Uri.ToString();
 
+			/*var local = db.Set<PictureItem>()
+						 .Local
+						 .FirstOrDefault(f => f.PictureItemID == picture.PictureItemID);
+			if (local != null)
+			{
+				db.Entry(local).State = EntityState.Detached;
+			}
+			db.Entry(picture).State = EntityState.Modified;
+
+			db.Pictures.Attach(picture);*/
+			db.Pictures.AddOrUpdate(picture);
 			db.SaveChanges();
 
 			return RedirectToAction("EditDeletePhotos");
