@@ -79,60 +79,75 @@ namespace BlaznWings.Controllers
 		[HttpPost]
 		public async System.Threading.Tasks.Task<ActionResult> AddPhotosAsync(PictureItem picture)
 		{
-			if (picture.Path != null)
+			AdminDB db = new AdminDB();
+
+			PictureItem nameCheck = db.Pictures.Where(v => v.Name.ToLower().
+			Equals(picture.Name.ToLower())).SingleOrDefault();
+
+			if (nameCheck == null)
 			{
-				CloudStorageAccount storageAccount = new CloudStorageAccount(
-				new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
 
-				CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-				CloudBlobContainer container = blobClient.GetContainerReference("blaznphotos");
-
-				// Get a reference to a blob named "myblob".
-				CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
-
-
-				string imageName = picture.Name;
-
-				blockBlob = container.GetBlockBlobReference(imageName);
-				blockBlob.Properties.ContentType = picture.Path.ContentType;
-
-				await blockBlob.UploadFromStreamAsync(picture.Path.InputStream);
-
-				CloudBlockBlob addedBlob = GetPictureBlobByName(imageName);
-
-				if (addedBlob != null)
+				if (picture.Path != null)
 				{
-					PictureItem newPicture = new PictureItem();
-					AdminDB db = new AdminDB();
+					CloudStorageAccount storageAccount = new CloudStorageAccount(
+					new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials("blaznart", "9Mh4A2zUSK8QgDOCKwf/OL7uqAtFDG90uoPNpJYXAlteZVqJU6xkN9/IP1zWVoV0l2WfFce4ksZ7t4fFHLXeaA=="), true);
 
-					newPicture.Category = picture.Category;
-					newPicture.Description = picture.Description;
-					//newPicture.Path = picture.Path;
-					newPicture.Name = picture.Name;
-					newPicture.Url = addedBlob.Uri.ToString();
+					CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
-					db.Pictures.Add(newPicture);
-					db.SaveChanges();
+					CloudBlobContainer container = blobClient.GetContainerReference("blaznphotos");
 
-					ViewBag.Message = "Picture added to storage!";
+					// Get a reference to a blob named "myblob".
+					CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
+
+
+					string imageName = picture.Name;
+
+					blockBlob = container.GetBlockBlobReference(imageName);
+					blockBlob.Properties.ContentType = picture.Path.ContentType;
+
+					await blockBlob.UploadFromStreamAsync(picture.Path.InputStream);
+
+					CloudBlockBlob addedBlob = GetPictureBlobByName(imageName);
+
+					if (addedBlob != null)
+					{
+						PictureItem newPicture = new PictureItem();
+						db = new AdminDB();
+
+						newPicture.Category = picture.Category;
+						newPicture.Description = picture.Description;
+						//newPicture.Path = picture.Path;
+						newPicture.Name = picture.Name;
+						newPicture.Url = addedBlob.Uri.ToString();
+
+						db.Pictures.Add(newPicture);
+						db.SaveChanges();
+
+						ViewBag.Message = "Picture added to storage!";
+					}
+					else
+					{
+						ViewBag.Message = "Unable to add that blob for whatever reason.";
+
+						return View();
+					}
+
+					ViewBag.Message = "Image uploaded!";
+
+					return RedirectToAction("AddPhotosAsync");
 				}
 				else
 				{
-					ViewBag.Message = "Unable to add that blob for whatever reason.";
+					ViewBag.Message = "Please select a file.";
 
-					return View();
+					return RedirectToAction("AddPhotosAsync");
 				}
-
-				ViewBag.Message = "Image uploaded!";
-
-				return RedirectToAction("AddPhotosAsync");
 			}
 			else
 			{
-				ViewBag.Message = "Please select a file.";
+				ViewBag.ErrorMessage = "A picture with that name already exists.";
 
-				return RedirectToAction("AddPhotosAsync");
+				return View();
 			}
 		}
 
@@ -233,16 +248,6 @@ namespace BlaznWings.Controllers
 			//Change PictureItem in SQL database
 			picture.Url = blobCopy.Uri.ToString();
 
-			/*var local = db.Set<PictureItem>()
-						 .Local
-						 .FirstOrDefault(f => f.PictureItemID == picture.PictureItemID);
-			if (local != null)
-			{
-				db.Entry(local).State = EntityState.Detached;
-			}
-			db.Entry(picture).State = EntityState.Modified;
-
-			db.Pictures.Attach(picture);*/
 			db.Pictures.AddOrUpdate(picture);
 			db.SaveChanges();
 
