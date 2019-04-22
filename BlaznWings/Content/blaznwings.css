@@ -1,6 +1,6 @@
 ﻿body
 {
-	background-color: lightgray
+	background-color: lightblue
 }
 
 thumbnail
@@ -8,4 +8,13 @@ thumbnail
 	height: 200px;
 	width: 200px;
 	padding: 10px;
+}
+
+.hamburger
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-bottom: 5px;
+	padding-right: 10px;
 }
