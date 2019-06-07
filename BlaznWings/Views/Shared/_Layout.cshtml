@@ -1,50 +1,46 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kamm's Portfolio Site</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+
+	<!-- Favicons -->
+	<link href="img/favicon.png" rel="icon">
+	<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<!-- Bootstrap CSS File -->
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Libraries CSS Files -->
+	<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="lib/animate/animate.min.css" rel="stylesheet">
+	<link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+	<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+	<!-- Main Stylesheet File -->
+	<link href="css/style.css" rel="stylesheet">
+
+	<!-- =======================================================
+	  Theme Name: DevFolio
+	  Theme URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
+	  Author: BootstrapMade.com
+	  License: https://bootstrapmade.com/license/
+	======================================================= -->
 </head>
 <body>
-	
-		<nav class="navbar navbar-fixed-top" style="background-color: lightcoral; border-width: 8px; border-color: black; ">
-			<div class="container-fluid">
-				<div class="navbar-header" >
-					<a href='@Url.Action("Index", "Home")' >
-						<img src='@Url.Content("~/Images/logocropped.png")' style="width: 600px; height: 200px; padding: 0px;"/>
-					</a>
-				</div>
-				<ul class="nav navbar-nav navbar-right hamburger" >
-					<li class="dropdown" >
-						<a class="dropdown-toggle bottom-right" data-toggle="dropdown" href="#" >
-								
-							<span class="glyphicon glyphicon-menu-hamburger" style="font-size: 80px; color: black ;vertical-align: bottom"></span>
-							
-						</a>
-						<ul class="dropdown-menu">
-							<li>@Html.ActionLink("Home", "Index", "Home")</li>
-							<li class="divider"></li>
-							<li class="dropdown-header">Pictures</li>
-							<li>@Html.ActionLink("Pictures", "Pictures", "Home")</li>
-							<li class="divider"></li>
-							<li class="dropdown-header">Videos</li>
-							<li>@Html.ActionLink("Videos", "Videos", "Home")</li>
-							<li class="divider"></li>
-							<br/>
-							<li>@Html.ActionLink("Report a Problem", "Report", "Home")</li>
-							<li>@Html.ActionLink("Admin Login", "AdminPortal", "Home")</li>
-						</ul>
-					</li>
-					
-				</ul>
-			</div>
-		</nav>
-	<!--/.Navbar-->
-	<div class="container body-content" style="padding-top: 10px;">
+
+	<div class="container body-content">
 		@RenderBody()
-		
+		<hr />
+
 	</div>
 
 	@Scripts.Render("~/bundles/jquery")

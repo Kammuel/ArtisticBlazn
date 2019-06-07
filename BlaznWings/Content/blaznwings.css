@@ -1,20 +1,25 @@
-﻿body
-{
-	background-color: lightblue
-}
+﻿
 
-thumbnail
-{
+thumbnail {
 	height: 200px;
 	width: 200px;
 	padding: 10px;
 }
 
-.hamburger
-{
+.hamburger {
 	position: absolute;
 	bottom: 0;
 	right: 0;
 	padding-bottom: 5px;
 	padding-right: 10px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus, .nav > li > a:visited, .nav > li > a:active
+{
+	background-color:transparent;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus
+{
+	background-color: transparent;
 }
